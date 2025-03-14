@@ -1,0 +1,25 @@
+Example output:  
+Fri Mar 14 22:00:00 EET 2025 | Temperature = -0.7 °C  
+Fri Mar 14 23:00:00 EET 2025 | Temperature = -1.4 °C  
+Sat Mar 15 00:00:00 EET 2025 | Temperature = -2.0 °C  
+Sat Mar 15 01:00:00 EET 2025 | Temperature = -2.8 °C  
+Sat Mar 15 02:00:00 EET 2025 | Temperature = -3.3 °C  
+Sat Mar 15 03:00:00 EET 2025 | Temperature = -3.3 °C  
+Sat Mar 15 04:00:00 EET 2025 | Temperature = -3.1 °C  
+Sat Mar 15 05:00:00 EET 2025 | Temperature = -2.4 °C  
+Sat Mar 15 06:00:00 EET 2025 | Temperature = -1.2 °C  
+Sat Mar 15 07:00:00 EET 2025 | Temperature = -0.2 °C  
+Sat Mar 15 08:00:00 EET 2025 | Temperature = 0.7 °C  
+Sat Mar 15 09:00:00 EET 2025 | Temperature = 1.6 °C  
+Sat Mar 15 10:00:00 EET 2025 | Temperature = 2.4 °C  
+Sat Mar 15 11:00:00 EET 2025 | Temperature = 3.0 °C  
+Sat Mar 15 12:00:00 EET 2025 | Temperature = 3.6 °C  
+Sat Mar 15 13:00:00 EET 2025 | Temperature = 3.4 °C  
+Sat Mar 15 14:00:00 EET 2025 | Temperature = 3.2 °C  
+Sat Mar 15 15:00:00 EET 2025 | Temperature = 3.1 °C  
+Sat Mar 15 16:00:00 EET 2025 | Temperature = 2.8 °C  
+Sat Mar 15 17:00:00 EET 2025 | Temperature = 2.7 °C  
+Sat Mar 15 18:00:00 EET 2025 | Temperature = 2.5 °C  
+Sat Mar 15 19:00:00 EET 2025 | Temperature = 2.1 °C  
+Sat Mar 15 20:00:00 EET 2025 | Temperature = 2.0 °C  
+Sat Mar 15 21:00:00 EET 2025 | Temperature = 2.0 °C
