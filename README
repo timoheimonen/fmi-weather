@@ -1,6 +1,6 @@
 # FMI Open Data Example (Java)
 
-This project demonstrates how to fetch and display weather forecast data, specifically temperature, for a given location using the Finnish Meteorological Institute's (FMI) open data API. This example was originally created by Timo Heimonen.
+This project demonstrates how to fetch and display weather forecast data, specifically temperature, for a given location using the Finnish Meteorological Institute's (FMI) open data API. This example created by Timo Heimonen.
 
 ## Description
 
