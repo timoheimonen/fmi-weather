@@ -4,11 +4,13 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.*;
 import java.net.*;
 import java.io.*;
-import java.text.SimpleDateFormat;
-import java.time.*;
+import java.time.ZonedDateTime;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
-import java.util.TimeZone;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeParseException;
+import java.time.format.DateTimeFormatterBuilder;
 
 public class WeatherData {
     public static void main(String[] args) {
@@ -19,12 +21,12 @@ public class WeatherData {
 
             // Define start and end times in UTC
             ZonedDateTime now = ZonedDateTime.now(ZoneOffset.UTC);
-            ZonedDateTime later = now.plusDays(1); 
-            
+            ZonedDateTime later = now.plusDays(1);
+
             // Build an ISO 8601 timestamp, e.g. 2025-03-14T12:00:00Z
             DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'");
             String startTime = now.format(timeFormatter);
-            String endTime   = later.format(timeFormatter);
+            String endTime = later.format(timeFormatter);
 
             // Construct the URL
             String urlString = "https://opendata.fmi.fi/wfs" +
@@ -49,35 +51,44 @@ public class WeatherData {
             // Fetch all weather data elements
             NodeList elements = document.getElementsByTagName("BsWfs:BsWfsElement");
 
-            // Use SimpleDateFormat to parse the time
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-            dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+            // Use DateTimeFormatter to parse the time from the XML and for printing
+            DateTimeFormatter parseFormatter = new DateTimeFormatterBuilder()
+                    .appendPattern("yyyy-MM-dd'T'HH:mm")
+                    .optionalStart()
+                    .appendPattern(":ss")
+                    .optionalEnd()
+                    .appendLiteral('Z')
+                    .toFormatter();
+
+            DateTimeFormatter printFormatter = DateTimeFormatter.ofPattern("HH:mm");
+
+            // Print given location
+            System.out.println(place);
 
             // Loop through elements and print parameters
             for (int i = 0; i < elements.getLength(); i++) {
                 Element element = (Element) elements.item(i);
-            
-                String timeText = element
-                        .getElementsByTagName("BsWfs:Time")
-                        .item(0)
-                        .getTextContent();
-            
-                String paramName = element
-                        .getElementsByTagName("BsWfs:ParameterName")
-                        .item(0)
-                        .getTextContent();
-            
-                String paramValue = element
-                        .getElementsByTagName("BsWfs:ParameterValue")
-                        .item(0)
-                        .getTextContent();
-            
-                // Convert the timestamp into a Date object (will display in the console in the local time zone)
-                Date date = dateFormat.parse(timeText);
-            
+
+                String timeText = element.getElementsByTagName("BsWfs:Time").item(0).getTextContent();
+                String paramName = element.getElementsByTagName("BsWfs:ParameterName").item(0).getTextContent();
+                String paramValue = element.getElementsByTagName("BsWfs:ParameterValue").item(0).getTextContent();
+
                 // Only print if the parameter is 'Temperature'
                 if ("Temperature".equalsIgnoreCase(paramName)) {
-                    System.out.println(date + " | " + paramName + " = " + paramValue + " °C");
+                    try {
+                         // Convert the timestamp to LocalDateTime in UTC
+                        LocalDateTime localDateTime = LocalDateTime.parse(timeText, parseFormatter);
+                        // Convert to local date and time
+                        ZonedDateTime zonedDateTime = localDateTime.atZone(ZoneId.of("UTC"));
+                        ZonedDateTime localZonedDateTime = zonedDateTime.withZoneSameInstant(ZoneId.systemDefault());
+                        
+                        // Format the time to HH:mm
+                        String formattedTime = localZonedDateTime.format(printFormatter);
+                        System.out.println(formattedTime + " " + paramValue + " °C");
+                    } catch (DateTimeParseException e) {
+                        System.err.println("Error parsing date/time: " + timeText);
+                        e.printStackTrace();
+                    }
                 }
             }
 
