@@ -11,8 +11,11 @@ This Java code makes a request to the FMI's Web Feature Service (WFS) to retriev
 Currently, the code is configured to fetch the weather forecast for Helsinki. To change the location, you can modify the `place` variable in the `main` method:
 
 ```java
-String place = "Helsinki"; // Change "Helsinki" to your desired location
-
+String place = "Helsinki"; // Default location
+  
+Or give cmd arguments:  
+```CMD  
+gradle run --args="Espoo"  
 
 ## Example output
 

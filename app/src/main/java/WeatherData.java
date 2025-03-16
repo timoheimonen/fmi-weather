@@ -1,5 +1,3 @@
-// opendata.fmi.fi example by Timo Heimonen
-
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.*;
 import java.net.*;
@@ -17,7 +15,12 @@ public class WeatherData {
         try {
             // This stored query fetches a point forecast from the Harmonie model
             String storedquery_id = "fmi::forecast::harmonie::surface::point::simple";
-            String place = "Helsinki";
+            String place = "Helsinki"; // Default value
+
+            // Check if a place is provided as a command-line argument
+            if (args.length > 0) {
+                place = args[0];
+            }
 
             // Define start and end times in UTC
             ZonedDateTime now = ZonedDateTime.now(ZoneOffset.UTC);
