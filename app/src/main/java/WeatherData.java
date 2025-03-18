@@ -38,7 +38,7 @@ public class WeatherData {
                     "&place=" + URLEncoder.encode(place, "UTF-8") +
                     "&starttime=" + URLEncoder.encode(startTime, "UTF-8") +
                     "&endtime=" + URLEncoder.encode(endTime, "UTF-8");
-
+            
             // Create the URI and URL
             URI uri = new URI(urlString);
             URL url = uri.toURL();
